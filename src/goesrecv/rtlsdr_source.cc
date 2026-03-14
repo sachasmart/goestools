@@ -23,6 +23,16 @@ std::unique_ptr<RTLSDR> RTLSDR::open(uint32_t index) {
   return std::make_unique<RTLSDR>(dev);
 }
 
+std::unique_ptr<RTLSDR> RTLSDR::openBySerial(const std::string& serial) {
+  auto index = rtlsdr_get_index_by_serial(serial.c_str());
+  if (index < 0) {
+    std::cerr << "Unable to find RTLSDR device with serial: " << serial << std::endl;
+    exit(1);
+  }
+
+  return RTLSDR::open(static_cast<uint32_t>(index));
+}
+
 RTLSDR::RTLSDR(rtlsdr_dev_t* dev) : dev_(dev) {
   int rv;
 

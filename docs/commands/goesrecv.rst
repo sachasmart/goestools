@@ -43,6 +43,27 @@ sample configuration file.
 .. _TOML:
    https://github.com/toml-lang/toml
 
+RTL-SDR device selection
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+When using multiple RTL-SDR devices, use ``device_serial`` in the ``[rtlsdr]``
+section to pin goesrecv to a specific dongle by its serial number. This is more
+reliable than ``device_index``, which can shift depending on USB enumeration order.
+
+.. code-block:: toml
+
+  [rtlsdr]
+  device_serial = "00000001"
+
+Set the serial number on a dongle with ``rtl_eeprom`` (requires the device to
+not be in use):
+
+.. code-block:: console
+
+  $ rtl_eeprom -d 0 -s "00000001"
+
+If ``device_serial`` is not set, goesrecv falls back to ``device_index`` (default 0).
+
 Statistics
 ==========
 

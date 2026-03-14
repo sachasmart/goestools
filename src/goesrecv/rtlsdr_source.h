@@ -13,6 +13,7 @@
 class RTLSDR : public Source {
 public:
   static std::unique_ptr<RTLSDR> open(uint32_t index = 0);
+  static std::unique_ptr<RTLSDR> openBySerial(const std::string& serial);
 
   explicit RTLSDR(rtlsdr_dev_t* dev);
   ~RTLSDR();

@@ -61,6 +61,9 @@ struct Config {
     // Optional device index (if you have multiple devices)
     uint32_t deviceIndex = 0;
 
+    // Optional device serial (takes precedence over deviceIndex)
+    std::string deviceSerial;
+
     std::unique_ptr<SamplePublisher> samplePublisher;
   };
 

@@ -57,7 +57,12 @@ std::unique_ptr<Source> Source::build(
   }
   if (type == "rtlsdr") {
 #ifdef BUILD_RTLSDR
-    auto rtlsdr = RTLSDR::open(config.rtlsdr.deviceIndex);
+    std::unique_ptr<RTLSDR> rtlsdr;
+    if (!config.rtlsdr.deviceSerial.empty()) {
+      rtlsdr = RTLSDR::openBySerial(config.rtlsdr.deviceSerial);
+    } else {
+      rtlsdr = RTLSDR::open(config.rtlsdr.deviceIndex);
+    }
 
     // Use sample rate if set, otherwise default to 2.4MSPS.
     if (config.rtlsdr.sampleRate != 0) {

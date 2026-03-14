@@ -194,6 +194,11 @@ void loadRTLSDRSource(Config::RTLSDR& out, const toml::Value& v) {
       continue;
     }
 
+    if (key == "device_serial") {
+      out.deviceSerial = value.as<std::string>();
+      continue;
+    }
+
     throwInvalidKey(key);
   }
 }

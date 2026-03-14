@@ -2,9 +2,9 @@
 
 Tools to work with signals and files from GOES satellites.
 
-* **goesrecv**: Demodulate and decode signal into packet stream.
-* **goeslrit**: Assemble LRIT files from packet stream.
-* **goesproc**: Process LRIT files into plain files and images.
+- **goesrecv**: Demodulate and decode signal into packet stream.
+- **goeslrit**: Assemble LRIT files from packet stream.
+- **goesproc**: Process LRIT files into plain files and images.
 
 I started writing this to learn about things involved in the GOES
 communication pipeline and in the process learn more about space
@@ -18,19 +18,19 @@ Raspberry Pi 3.
 
 System dependencies:
 
-* CMake
-* C++14 compiler
-* OpenCV 2 (for image processing in goesproc)
-* zlib (for EMWIN decompression)
+- CMake
+- C++14 compiler
+- OpenCV 2 (for image processing in goesproc)
+- zlib (for EMWIN decompression)
 
 Bundled dependencies:
 
-* libcorrect (currently a fork with CMake related fixes)
-* libaec
+- libcorrect (currently a fork with CMake related fixes)
+- libaec
 
 ## Build
 
-``` shell
+```shell
 git clone https://github.com/pietern/goestools
 cd goestools
 mkdir -p build
@@ -74,7 +74,7 @@ alphabetically sorted list of file names that match the pattern.
 
 Example with files:
 
-``` shell
+```shell
 $ goeslrit --images /path/to/packets/packets-2018-02-28T*
 Reading: /path/to/packets/packets-2018-02-28T00:00:00Z.raw
 Writing: OR_ABI-L2-CMIPM1-M3C02_G16_s20180582358300_e20180582358358_c20180582358429.lrit (4004087 bytes)
@@ -98,7 +98,7 @@ the IPC transport mechanism (`ipc://path/to/socket`, also see
 
 Example with publisher:
 
-``` shell
+```shell
 $ goeslrit --images --subscribe tcp://1.2.3.4:5005
 Writing: OR_ABI-L2-CMIPM1-M3C02_G16_s20180591958303_e20180591958360_c20180591958427.lrit (4004087 bytes)
 Writing: OR_ABI-L2-CMIPM2-M3C07_G16_s20180592000003_e20180592000073_c20180592000110.lrit (254551 bytes)
@@ -135,7 +135,7 @@ An example goesproc configuration file can be found at
 
 For example, with the following configuration file:
 
-``` toml
+```toml
 [[handler]]
 type = "image"
 product = "goes15"
@@ -147,7 +147,7 @@ filename = "GOES15_%r_%c_%t"
 
 Running goesproc against a directory with GOES-15 LRIT files:
 
-``` shell
+```shell
 $ goesproc --config example.conf --mode lrit ./out/images/goes15/fd
 Writing ./GOES15_FD_VS_20170820-210600.png
 Writing ./GOES15_FD_VS_20170821-000600.png
@@ -164,7 +164,7 @@ You can now use these image files however you like. For example, to
 produce a GIF from 8 consecutive full disk images, you can use the
 following ImageMagick commands:
 
-``` shell
+```shell
 mogrify -resize '640x480>' *.png
 convert -loop 0 -delay 50 *.png GOES15_FD_VS_20170821.gif
 ```
@@ -178,14 +178,14 @@ LRIT is also relevant for HRIT. The documents below used to be hosted
 by NOAA until ~2020. They're mirrored here for posterity (thanks @gojimmypi;
 see https://github.com/pietern/goestools/pull/102).
 
-* [LRIT Receiver Specification](./docs/files/3_LRIT_Receiver-specs.pdf)
-* [LRIT Transmitter Specification](./docs/files/4_LRIT_Transmitter-specs.pdf)
-* [LRIT Mission Specific Data](./docs/files/5_LRIT_Mission-data.pdf)
+- [LRIT Receiver Specification](./docs/files/3_LRIT_Receiver-specs.pdf)
+- [LRIT Transmitter Specification](./docs/files/4_LRIT_Transmitter-specs.pdf)
+- [LRIT Mission Specific Data](./docs/files/5_LRIT_Mission-data.pdf)
 
 Also, these blog series:
 
-* https://web.archive.org/web/20150426214432/http://www.acasper.org/2011/10/24/goes-satellite-decoding/
-* http://www.teske.net.br/lucas/2016/10/goes-satellite-hunt-part-1-antenna-system/
+- https://web.archive.org/web/20150426214432/http://www.acasper.org/2011/10/24/goes-satellite-decoding/
+- http://www.teske.net.br/lucas/2016/10/goes-satellite-hunt-part-1-antenna-system/
 
 ### Reed-Solomon
 
