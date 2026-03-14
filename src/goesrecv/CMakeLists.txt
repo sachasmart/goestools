@@ -10,11 +10,12 @@ add_library(publisher
 target_link_libraries(publisher nanomsg)
 
 pkg_check_modules(AIRSPY libairspy)
+pkg_check_modules(LIBUSB libusb-1.0)
 if(NOT AIRSPY_FOUND)
   message(WARNING "Unable to find libairspy")
 else()
   add_library(airspy_source airspy_source.cc)
-  target_link_libraries(airspy_source ${AIRSPY_LIBRARIES} publisher stdc++)
+  target_link_libraries(airspy_source ${AIRSPY_LIBRARIES} ${LIBUSB_LIBRARIES} publisher stdc++)
 endif()
 
 pkg_check_modules(RTLSDR librtlsdr)
